@@ -12,32 +12,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = {
-  form: {
-    textAlign: 'center'
-  },
-  image: {
-    margin: '20px auto 20px auto'
-  },
-  pageTitle: {
-    margin: '10px auto 10px auto'
-  },
-  textField: {
-    margin: '10px auto 10px auto'
-  },
-  Button: {
-    marginTop: 20,
-    position: 'relative'
-  },
-  customError: {
-    color: 'red',
-    fontSize: '1rem',
-    marginTop: 10
-  },
-  progress: {
-    position: 'absolute'
-  }
-};
+const styles = theme => ({
+  ...theme.spreadThis
+});
 
 class login extends Component {
   constructor() {
@@ -63,6 +40,7 @@ class login extends Component {
       .post('/login', userData)
       .then(res => {
         console.log(res.data);
+        localStorage.setItem('FBIdToken', `Baerer ${res.data.token}`);
         this.setState({
           loading: false
         });
@@ -89,7 +67,7 @@ class login extends Component {
       <Grid container className={classes.form}>
         <Grid item sm />
         <Grid item sm>
-          <img src={AppIcon} alt="monkey image" className={classes.image} />
+          <img src={AppIcon} alt="monkey" className={classes.image} />
           <Typography variant="h2" className={classes.pageTitle}>
             Login
           </Typography>
@@ -99,6 +77,7 @@ class login extends Component {
               name="email"
               type="email"
               label="email"
+              autoComplete="off"
               className={classes.TextField}
               helperText={errors.email}
               error={errors.email ? true : false}
@@ -111,6 +90,7 @@ class login extends Component {
               name="password"
               type="password"
               label="Password"
+              autoComplete="off"
               className={classes.TextField}
               helperText={errors.password}
               error={errors.password ? true : false}
@@ -132,7 +112,7 @@ class login extends Component {
             >
               Login
               {loading && (
-                <CircularProgress size={30} className={classes.progress}/>
+                <CircularProgress size={30} className={classes.progress} />
               )}
             </Button>
             <br />
