@@ -14,6 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // Redux Stuff
 import { connect } from 'react-redux';
 import { loginUser } from '../redux/actions/userActions';
+
 const styles = theme => ({
   ...theme.spreadThis
 });
