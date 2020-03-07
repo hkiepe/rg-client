@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import EditDetails from './EditDetails'
 
 // Redux Stuff
 import { connect } from 'react-redux';
@@ -21,6 +22,7 @@ import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 const styles = theme => ({
   paper: {
@@ -81,6 +83,9 @@ class Profile extends Component {
     const fileInput = document.getElementById('imageInput');
     fileInput.click();
   };
+  handleLogout = () => {
+    this.props.logoutUser();
+  };
   render() {
     const {
       classes,
@@ -111,14 +116,17 @@ class Profile extends Component {
             </div>
             <hr />
             <div className="profile-details">
-              <MuiLink
-                component={Link}
-                to={`/users/${handle}`}
-                color="primary"
-                variant="h5"
-              >
-                @{handle}
-              </MuiLink>
+              <Tooltip title="Profile Details" placement="top">
+                <MuiLink
+                  component={Link}
+                  to={`/users/${handle}`}
+                  color="primary" 
+                  variant="h5"
+                  textDecoration="none"
+                >
+                  @{handle}
+                </MuiLink>
+              </Tooltip>
               <hr />
               {bio && <Typography variant="body2">{bio}</Typography>}
               <hr />
@@ -141,6 +149,12 @@ class Profile extends Component {
               <CalendarToday color="primary" />{' '}
               <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
             </div>
+            <Tooltip title="Logout" placement="top">
+              <IconButton onClick={this.handleLogout}>
+                <KeyboardReturn color="primary" />
+              </IconButton>
+            </Tooltip>
+            <EditDetails/>
           </div>
         </Paper>
       ) : (
@@ -186,7 +200,10 @@ Profile.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   uploadImage: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  classe: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Profile));
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(styles)(Profile));
