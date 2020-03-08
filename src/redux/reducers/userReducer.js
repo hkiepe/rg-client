@@ -48,7 +48,7 @@ export default function(state = initialState, action) {
             screamId: action.payload.screamId
           }
         ]
-      }
+      };
     case UNLIKE_SCREAM:
       return {
         ...state,

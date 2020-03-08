@@ -2,9 +2,9 @@ import {
   SET_SCREAMS,
   LOADING_DATA,
   LIKE_SCREAM,
-  UNLIKE_SCREAM
+  UNLIKE_SCREAM,
+  DELETE_SCREAM
 } from '../types';
-import axios from 'axios';
 
 const initialState = {
   screams: [],
@@ -27,7 +27,7 @@ export default function(state = initialState, action) {
       };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM:
-      let index = state.screams.findIndex(
+      var index = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
       state.screams[index] = action.payload;
@@ -36,6 +36,13 @@ export default function(state = initialState, action) {
       // }
       return {
         ...state
+      };
+    case DELETE_SCREAM:
+      return {
+        ...state,
+        screams: state.screams.filter(
+          scream => scream.screamId !== action.payload
+        )
       };
     default:
       return state;
