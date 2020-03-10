@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
+import Comments from './Comments.js';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
@@ -20,14 +21,10 @@ import ChatIcon from '@material-ui/icons/Chat';
 
 // Redux Stuff
 import { connect } from 'react-redux';
-import { getScream } from '../redux/actions/dataActions';
+import { getScream } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
   ...theme.spreadThis,
-  invisibleSeparaot: {
-    border: 'none',
-    margin: 4
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -42,13 +39,13 @@ const styles = theme => ({
     left: '90%'
   },
   expandButton: {
-      position: 'absolute',
-      left: '90%'
+    position: 'absolute',
+    left: '90%'
   },
   spinnerDiv: {
-      textAlign: 'center',
-      marginTop: 50,
-      marginBottom: 50
+    textAlign: 'center',
+    marginTop: 50,
+    marginBottom: 50
   }
 });
 
@@ -59,7 +56,7 @@ class ScreamDialog extends Component {
 
   handleOpen = () => {
     this.setState({ open: true });
-    this.props.getScream(this.props.screamId);
+    //this.props.getScream(this.props.screamId);
   };
 
   handleClose = () => {
@@ -76,13 +73,14 @@ class ScreamDialog extends Component {
         likeCount,
         commentCount,
         userImage,
-        userHandle
+        userHandle,
+        comments
       },
       UI: { loading }
     } = this.props;
     const dialogMarkup = loading ? (
       <div className={classes.spinnerDiv}>
-          <CircularProgress size={200} thickness={2} />
+        <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
       <Grid container spacing={16}>
@@ -104,13 +102,15 @@ class ScreamDialog extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body1">{body}</Typography>
-          <LikeButton screamId={screamId}/>
+          <LikeButton screamId={screamId} />
           <span>{likeCount} likes</span>
           <MyButton tip="comments">
-              <ChatIcon color="primary" />
-            </MyButton>
-            <span>{commentCount} comments</span>
+            <ChatIcon color="primary" />
+          </MyButton>
+          <span>{commentCount} comments</span>
         </Grid>
+        <hr className={classes.visibleSeparator}/>
+        <Comments comments={comments}/>
       </Grid>
     );
 
