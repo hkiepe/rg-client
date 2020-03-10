@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-const styles = (theme) => ({
+const styles = theme => ({
   ...theme.spreadThis,
   commentImage: {
     maxWidth: '100%',
