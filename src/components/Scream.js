@@ -39,6 +39,7 @@ const styles = {
 };
 
 class Scream extends Component {
+
   likedScream = () => {
     if (
       this.props.user.likes &&
