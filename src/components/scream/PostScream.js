@@ -1,24 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import MyButton from '../../util/MyButton';
-
-// MUI Stuff
 import withStyles from '@material-ui/core/styles/withStyles';
+import MyButton from '../../util/MyButton';
+// MUI Stuff
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-
-// MUI Icons
-import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-
-// Redux Stuff
+// Redux stuff
 import { connect } from 'react-redux';
 import { postScream, clearErrors } from '../../redux/actions/dataActions';
 
@@ -45,7 +38,6 @@ class PostScream extends Component {
     body: '',
     errors: {}
   };
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({
@@ -56,24 +48,20 @@ class PostScream extends Component {
       this.setState({ body: '', open: false, errors: {} });
     }
   }
-
   handleOpen = () => {
     this.setState({ open: true });
   };
-
   handleClose = () => {
+    this.props.clearErrors();
     this.setState({ open: false, errors: {} });
   };
-
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-
   handleSubmit = event => {
     event.preventDefault();
     this.props.postScream({ body: this.state.body });
   };
-
   render() {
     const { errors } = this.state;
     const {
@@ -82,7 +70,7 @@ class PostScream extends Component {
     } = this.props;
     return (
       <Fragment>
-        <MyButton onClick={this.handleOpen} tip="Post a scream!">
+        <MyButton onClick={this.handleOpen} tip="Post a Scream!">
           <AddIcon />
         </MyButton>
         <Dialog
@@ -92,22 +80,22 @@ class PostScream extends Component {
           maxWidth="sm"
         >
           <MyButton
-            onClick={this.handleClose}
             tip="Close"
+            onClick={this.handleClose}
             tipClassName={classes.closeButton}
           >
             <CloseIcon />
           </MyButton>
-          <DialogTitle>Post a new Scream</DialogTitle>
+          <DialogTitle>Post a new scream</DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
               <TextField
                 name="body"
                 type="text"
-                label="SCREAM !!!"
+                label="SCREAM!!"
                 multiline
                 rows="3"
-                placeholder="Scream at your social apes"
+                placeholder="Scream at your fellow apes"
                 error={errors.body ? true : false}
                 helperText={errors.body}
                 className={classes.textField}

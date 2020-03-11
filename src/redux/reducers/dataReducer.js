@@ -1,11 +1,11 @@
 import {
   SET_SCREAMS,
-  SET_SCREAM,
-  LOADING_DATA,
   LIKE_SCREAM,
   UNLIKE_SCREAM,
+  LOADING_DATA,
   DELETE_SCREAM,
   POST_SCREAM,
+  SET_SCREAM,
   SUBMIT_COMMENT
 } from '../types';
 
@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
       };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM:
-      var index = state.screams.findIndex(
+      let index = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
       state.screams[index] = action.payload;
@@ -46,11 +46,12 @@ export default function(state = initialState, action) {
         ...state
       };
     case DELETE_SCREAM:
+      index = state.screams.findIndex(
+        scream => scream.screamId === action.payload
+      );
+      state.screams.splice(index, 1);
       return {
-        ...state,
-        screams: state.screams.filter(
-          scream => scream.screamId !== action.payload
-        )
+        ...state
       };
     case POST_SCREAM:
       return {

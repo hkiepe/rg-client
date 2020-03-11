@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import AppIcon from '../images/icon.png';
 import { Link } from 'react-router-dom';
 
 // MUI Stuff
-import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-// Redux Stuff
+// Redux stuff
 import { connect } from 'react-redux';
 import { loginUser } from '../redux/actions/userActions';
 
@@ -28,8 +27,8 @@ class login extends Component {
       errors: {}
     };
   }
-  componentWillReceiveProps(nextProps){
-    if (nextProps.UI.errors){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
@@ -41,19 +40,18 @@ class login extends Component {
     };
     this.props.loginUser(userData, this.props.history);
   };
-
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   };
-
   render() {
     const {
       classes,
       UI: { loading }
     } = this.props;
     const { errors } = this.state;
+
     return (
       <Grid container className={classes.form}>
         <Grid item sm />
@@ -67,9 +65,8 @@ class login extends Component {
               id="email"
               name="email"
               type="email"
-              label="email"
-              autoComplete="off"
-              className={classes.TextField}
+              label="Email"
+              className={classes.textField}
               helperText={errors.email}
               error={errors.email ? true : false}
               value={this.state.email}
@@ -81,8 +78,7 @@ class login extends Component {
               name="password"
               type="password"
               label="Password"
-              autoComplete="off"
-              className={classes.TextField}
+              className={classes.textField}
               helperText={errors.password}
               error={errors.password ? true : false}
               value={this.state.password}
@@ -98,7 +94,7 @@ class login extends Component {
               type="submit"
               variant="contained"
               color="primary"
-              className={classes.Button}
+              className={classes.button}
               disabled={loading}
             >
               Login

@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import MyButton from '../../util/MyButton';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 // Icons
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-
-// Redux Stuff
+// REdux
 import { connect } from 'react-redux';
 import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
 
@@ -20,7 +18,6 @@ export class LikeButton extends Component {
       return true;
     else return false;
   };
-
   likeScream = () => {
     this.props.likeScream(this.props.screamId);
   };
