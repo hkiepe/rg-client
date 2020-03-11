@@ -6,6 +6,7 @@ import {
   DELETE_SCREAM,
   SET_ERRORS,
   POST_SCREAM,
+  CLEAR_ERRORS,
   LOADING_UI,
   SET_SCREAM,
   STOP_LOADING_UI,
@@ -31,8 +32,6 @@ export const getScreams = () => dispatch => {
       });
     });
 };
-
-// Get only one Scream
 export const getScream = screamId => dispatch => {
   dispatch({ type: LOADING_UI });
   axios
@@ -46,7 +45,6 @@ export const getScream = screamId => dispatch => {
     })
     .catch(err => console.log(err));
 };
-
 // Post a scream
 export const postScream = newScream => dispatch => {
   dispatch({ type: LOADING_UI });
@@ -66,7 +64,6 @@ export const postScream = newScream => dispatch => {
       });
     });
 };
-
 // Like a scream
 export const likeScream = screamId => dispatch => {
   axios
@@ -79,7 +76,6 @@ export const likeScream = screamId => dispatch => {
     })
     .catch(err => console.log(err));
 };
-
 // Unlike a scream
 export const unlikeScream = screamId => dispatch => {
   axios
@@ -92,7 +88,6 @@ export const unlikeScream = screamId => dispatch => {
     })
     .catch(err => console.log(err));
 };
-
 // Submit a comment
 export const submitComment = (screamId, commentData) => dispatch => {
   axios
@@ -111,19 +106,13 @@ export const submitComment = (screamId, commentData) => dispatch => {
       });
     });
 };
-
 export const deleteScream = screamId => dispatch => {
   axios
     .delete(`/scream/${screamId}`)
     .then(() => {
-      dispatch({
-        type: DELETE_SCREAM,
-        payload: screamId
-      });
+      dispatch({ type: DELETE_SCREAM, payload: screamId });
     })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 };
 
 export const getUserData = userHandle => dispatch => {
@@ -145,5 +134,5 @@ export const getUserData = userHandle => dispatch => {
 };
 
 export const clearErrors = () => dispatch => {
-  dispatch(clearErrors());
+  dispatch({ type: CLEAR_ERRORS });
 };
