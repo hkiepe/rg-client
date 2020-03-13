@@ -24,6 +24,7 @@ class login extends Component {
     this.state = {
       email: '',
       password: '',
+      rentalpoint: '',
       errors: {}
     };
   }
@@ -36,7 +37,8 @@ class login extends Component {
     event.preventDefault();
     const userData = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      rentalpoint: this.state.rentalpoint
     };
     this.props.loginUser(userData, this.props.history);
   };
