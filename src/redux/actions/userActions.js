@@ -10,6 +10,8 @@ import {
 import axios from 'axios';
 
 export const loginUser = (userData, history) => dispatch => {
+  console.log('Henrik: ')
+  console.log(userData)
   dispatch({ type: LOADING_UI });
   axios
     .post('/login', userData)
