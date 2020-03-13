@@ -61,6 +61,18 @@ class login extends Component {
             Login
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>
+          <TextField
+              id="rentalpoint"
+              name="rentalpoint"
+              type="rentalpoint"
+              label="Rentalpoint"
+              className={classes.textField}
+              helperText={errors.rentalpoint}
+              error={errors.rentalpoint ? true : false}
+              value={this.state.rentalpoint}
+              onChange={this.handleChange}
+              fullWidth
+            />
             <TextField
               id="email"
               name="email"
