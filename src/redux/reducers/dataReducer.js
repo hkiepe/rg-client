@@ -6,12 +6,14 @@ import {
   DELETE_SCREAM,
   POST_SCREAM,
   SET_SCREAM,
-  SUBMIT_COMMENT
+  SUBMIT_COMMENT,
+  SET_RENTALPOINTS
 } from '../types';
 
 const initialState = {
   screams: [],
   scream: {},
+  rentalpoints: [],
   loading: false
 };
 
@@ -65,6 +67,12 @@ export default function(state = initialState, action) {
           ...state.scream,
           comments: [action.payload, ...state.scream.comments]
         }
+      };
+      case SET_RENTALPOINTS:
+      return {
+        ...state,
+        rentalpoints: action.payload,
+        loading: false
       };
     default:
       return state;

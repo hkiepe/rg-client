@@ -10,7 +10,8 @@ import {
   LOADING_UI,
   SET_SCREAM,
   STOP_LOADING_UI,
-  SUBMIT_COMMENT
+  SUBMIT_COMMENT,
+  SET_RENTALPOINTS
 } from '../types';
 import axios from 'axios';
 
@@ -32,6 +33,7 @@ export const getScreams = () => dispatch => {
       });
     });
 };
+
 export const getScream = screamId => dispatch => {
   dispatch({ type: LOADING_UI });
   axios
@@ -129,6 +131,24 @@ export const getUserData = userHandle => dispatch => {
       dispatch({
         type: SET_SCREAMS,
         payload: null
+      });
+    });
+};
+
+// Get all screams
+export const getRentalpoints = () => dispatch => {
+  axios
+    .get('/rentalpoints')
+    .then(res => {
+      dispatch({
+        type: SET_RENTALPOINTS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_RENTALPOINTS,
+        payload: []
       });
     });
 };
