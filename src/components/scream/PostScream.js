@@ -136,6 +136,7 @@ class PostScream extends Component {
     body: '',
     errors: {}
   };
+  
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({

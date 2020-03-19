@@ -174,7 +174,7 @@ class CreateRental extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   handleSubmit = event => {
-    console.log('handle Submit');
+    console.log('Handle Submit');
     console.log(this.state);
     event.preventDefault();
     this.props.postRental({
