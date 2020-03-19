@@ -175,15 +175,12 @@ export const getRentals = () => dispatch => {
     });
 };
 
-// Post a scream
+// Post a rental
 export const postRental = newRental => dispatch => {
-  console.log("Data Actions")
-  console.log(newRental)
   dispatch({ type: LOADING_UI });
   axios
     .post('/rental', newRental)
     .then(res => {
-      console.log("Axios")
       dispatch({
         type: POST_RENTAL,
         payload: res.data
