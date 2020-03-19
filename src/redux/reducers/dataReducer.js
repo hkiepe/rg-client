@@ -7,13 +7,16 @@ import {
   POST_SCREAM,
   SET_SCREAM,
   SUBMIT_COMMENT,
-  SET_RENTALPOINTS
+  SET_RENTALPOINTS,
+  SET_RENTALS,
+  POST_RENTAL
 } from '../types';
 
 const initialState = {
   screams: [],
   scream: {},
   rentalpoints: [],
+  rentals: [],
   loading: false
 };
 
@@ -68,11 +71,24 @@ export default function(state = initialState, action) {
           comments: [action.payload, ...state.scream.comments]
         }
       };
-      case SET_RENTALPOINTS:
+    case SET_RENTALPOINTS:
       return {
         ...state,
         rentalpoints: action.payload,
         loading: false
+      };
+    case SET_RENTALS:
+      return {
+        ...state,
+        rentalTransactions: action.payload,
+        loading: false
+      };
+      case POST_RENTAL:
+        console.log("Data Reducer")
+        console.log(...state.rentals)
+      return {
+        ...state,
+        rentals: [action.payload, ...state.rentals]
       };
     default:
       return state;

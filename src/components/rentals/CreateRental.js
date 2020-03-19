@@ -13,7 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
-import { postScream, clearErrors } from '../../redux/actions/dataActions';
+import { postRental, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
   ...theme.spreadThis,
@@ -130,12 +130,19 @@ const styles = theme => ({
   }
 });
 
-class PostScream extends Component {
+class CreateRental extends Component {
   state = {
     open: false,
-    body: '',
+    email: '',
+    telephone: '',
+    pesel: '',
+    firstName: '',
+    lastName: '',
+    advancePayment: '',
+    vehicles: [],
     errors: {}
   };
+
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({
@@ -143,7 +150,17 @@ class PostScream extends Component {
       });
     }
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
-      this.setState({ body: '', open: false, errors: {} });
+      this.setState({
+        open: false,
+        email: '',
+        telephone: '',
+        pesel: '',
+        firstName: '',
+        lastName: '',
+        advancePayment: '',
+        vehicles: [],
+        errors: {}
+      });
     }
   }
   handleOpen = () => {
@@ -157,8 +174,18 @@ class PostScream extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   handleSubmit = event => {
+    console.log('handle Submit');
+    console.log(this.state);
     event.preventDefault();
-    this.props.postScream({ body: this.state.body });
+    this.props.postRental({
+      email: this.state.email,
+      telephone: this.state.telephone,
+      pesel: this.state.pesel,
+      firstName: this.state.pesel,
+      lastName: this.state.lastName,
+      advancePayment: this.state.advancePayment,
+      vehicles: this.state.vehicles
+    });
   };
   render() {
     const { errors } = this.state;
@@ -168,13 +195,13 @@ class PostScream extends Component {
     } = this.props;
     return (
       <Fragment>
-        <MyButton onClick={this.handleOpen} tip="Post a Scream!">
+        <MyButton onClick={this.handleOpen} tip="Create rental">
           <AddIcon />
         </MyButton>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
-          fullWidth
+          fullScreen
           maxWidth="sm"
         >
           <MyButton
@@ -184,16 +211,94 @@ class PostScream extends Component {
           >
             <CloseIcon />
           </MyButton>
-          <DialogTitle>Post a new scream</DialogTitle>
+          <DialogTitle>Post a new rental transaction</DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
               <TextField
-                name="body"
+                name="email"
                 type="text"
-                label="SCREAM!!"
+                label="Email"
                 multiline
                 rows="3"
-                placeholder="Scream at your fellow apes"
+                placeholder="Fill in the mail adress"
+                error={errors.body ? true : false}
+                helperText={errors.body}
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name="telephone"
+                type="text"
+                label="Telephone"
+                multiline
+                rows="3"
+                placeholder="Fill in the telephone number"
+                error={errors.body ? true : false}
+                helperText={errors.body}
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name="pesel"
+                type="text"
+                label="Pesel"
+                multiline
+                rows="3"
+                placeholder="Fill in the Pesel"
+                error={errors.body ? true : false}
+                helperText={errors.body}
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name="firstName"
+                type="text"
+                label="First name"
+                multiline
+                rows="3"
+                placeholder="Fill in the first name"
+                error={errors.body ? true : false}
+                helperText={errors.body}
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name="lastName"
+                type="text"
+                label="Last name"
+                multiline
+                rows="3"
+                placeholder="Fill in the last name"
+                error={errors.body ? true : false}
+                helperText={errors.body}
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name="advancePayment"
+                type="text"
+                label="Advance payment"
+                multiline
+                rows="3"
+                placeholder="Fill in the advance payment"
+                error={errors.body ? true : false}
+                helperText={errors.body}
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name="vehicles"
+                type="text"
+                label="Vehicles"
+                multiline
+                rows="3"
+                placeholder="Fill in the vehicles"
                 error={errors.body ? true : false}
                 helperText={errors.body}
                 className={classes.textField}
@@ -223,8 +328,8 @@ class PostScream extends Component {
   }
 }
 
-PostScream.propTypes = {
-  postScream: PropTypes.func.isRequired,
+CreateRental.propTypes = {
+  postRental: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired
 };
@@ -233,6 +338,6 @@ const mapStateToProps = state => ({
   UI: state.UI
 });
 
-export default connect(mapStateToProps, { postScream, clearErrors })(
-  withStyles(styles)(PostScream)
+export default connect(mapStateToProps, { postRental, clearErrors })(
+  withStyles(styles)(CreateRental)
 );

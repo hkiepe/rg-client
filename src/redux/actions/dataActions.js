@@ -11,7 +11,9 @@ import {
   SET_SCREAM,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
-  SET_RENTALPOINTS
+  SET_RENTALPOINTS,
+  SET_RENTALS,
+  POST_RENTAL
 } from '../types';
 import axios from 'axios';
 
@@ -47,6 +49,7 @@ export const getScream = screamId => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
 // Post a scream
 export const postScream = newScream => dispatch => {
   dispatch({ type: LOADING_UI });
@@ -66,6 +69,7 @@ export const postScream = newScream => dispatch => {
       });
     });
 };
+
 // Like a scream
 export const likeScream = screamId => dispatch => {
   axios
@@ -135,7 +139,7 @@ export const getUserData = userHandle => dispatch => {
     });
 };
 
-// Get all screams
+// Get all rentalpoints
 export const getRentalpoints = () => dispatch => {
   axios
     .get('/rentalpoints')
@@ -149,6 +153,47 @@ export const getRentalpoints = () => dispatch => {
       dispatch({
         type: SET_RENTALPOINTS,
         payload: []
+      });
+    });
+};
+
+// Get all rental transactions
+export const getRentals = () => dispatch => {
+  axios
+    .get('/rentals')
+    .then(res => {
+      dispatch({
+        type: SET_RENTALS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_RENTALS,
+        payload: []
+      });
+    });
+};
+
+// Post a scream
+export const postRental = newRental => dispatch => {
+  console.log("Data Actions")
+  console.log(newRental)
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/rental', newRental)
+    .then(res => {
+      console.log("Axios")
+      dispatch({
+        type: POST_RENTAL,
+        payload: res.data
+      });
+      dispatch(clearErrors());
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
       });
     });
 };

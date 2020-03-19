@@ -19,3 +19,5 @@ export const DELETE_SCREAM = 'DELETE_SCREAM';
 export const POST_SCREAM = 'POST_SCREAM';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 export const SET_RENTALPOINTS = 'SET_RENTALPOINTS';
+export const SET_RENTALS = 'SET_RENTALS';
+export const POST_RENTAL = 'POST_RENTAL';
