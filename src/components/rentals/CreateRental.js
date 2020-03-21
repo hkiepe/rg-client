@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import MyButton from '../../util/MyButton';
+import SelectVehciles from './SelectVehicles';
 // MUI Stuff
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -321,6 +322,11 @@ class CreateRental extends Component {
                 )}
               </Button>
             </form>
+            <SelectVehciles
+            // screamId={screamId}
+            // userHandle={userHandle}
+            // openDialog={this.props.openDialog}
+          />
           </DialogContent>
         </Dialog>
       </Fragment>
